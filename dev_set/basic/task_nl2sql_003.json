@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_003",
+  "question": "Return the names of students who have more than two enrollments.",
+  "db_schema": "CREATE TABLE Students (sid INTEGER PRIMARY KEY, name TEXT NOT NULL, dept TEXT NOT NULL);\nCREATE TABLE Courses (cid INTEGER PRIMARY KEY, title TEXT NOT NULL, professor TEXT NOT NULL, year INTEGER NOT NULL);\nCREATE TABLE Enrollments (sid INTEGER NOT NULL, cid INTEGER NOT NULL, score INTEGER NOT NULL, PRIMARY KEY (sid, cid));",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_003.sqlite",
+  "gold_sql": "SELECT s.name FROM Students s JOIN Enrollments e ON s.sid = e.sid GROUP BY s.sid, s.name HAVING COUNT(*) > 2;",
+  "dialect": "sqlite",
+  "_features": ["JOIN", "GROUP BY", "HAVING", "COUNT"]
+}

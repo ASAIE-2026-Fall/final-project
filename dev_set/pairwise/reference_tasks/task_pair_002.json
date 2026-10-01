@@ -1,0 +1,42 @@
+{
+  "task_id": "task_pair_002",
+  "task_description": "Implement binary_search(arr, target): given a sorted (non-decreasing) list of integers and a target int, return the 0-based index of target if present, else -1. Empty array returns -1. Must run in O(log n).",
+  "constraints": {
+    "entry_function": "binary_search",
+    "max_loc": 500,
+    "imports_forbidden": ["os", "sys", "subprocess"]
+  },
+  "test_cases": [
+    {"input": [[], 5],              "expected": -1},
+    {"input": [[5], 5],             "expected": 0},
+    {"input": [[5], 7],             "expected": -1},
+    {"input": [[1,2,3,4,5], 3],     "expected": 2},
+    {"input": [[1,2,3,4,5], 1],     "expected": 0},
+    {"input": [[1,2,3,4,5], 5],     "expected": 4},
+    {"input": [[1,2,3,4,5], 6],     "expected": -1},
+    {"input": [[1,2,3,4,5], 0],     "expected": -1}
+  ],
+  "clean_code": "def binary_search(arr, target):\n    lo, hi = 0, len(arr) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
+  "buggy_code": "def binary_search(arr, target):\n    lo, hi = 0, len(arr) - 1\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
+  "tricky_code": "def binary_search(arr, target):\n    lo, hi = 0, len(arr)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
+  "bugs_in_buggy": [
+    {
+      "line_start": 3,
+      "line_end": 3,
+      "severity": "high",
+      "type": "off_by_one",
+      "description": "`while lo < hi` skips the final candidate when lo == hi; single-element arrays where the target is the only element return -1.",
+      "suggested_fix": "Change to `while lo <= hi`."
+    }
+  ],
+  "bugs_in_tricky": [
+    {
+      "line_start": 10,
+      "line_end": 10,
+      "severity": "high",
+      "type": "logic_error",
+      "description": "Mixing exclusive upper bound `hi = len(arr)` with inclusive shrink `hi = mid - 1` makes the search skip valid positions. Should use `hi = mid` to stay consistent with exclusive bound.",
+      "suggested_fix": "Either use `hi = len(arr) - 1` + `while lo <= hi` (inclusive), or keep exclusive `hi = len(arr)` + `while lo < hi` and shrink with `hi = mid`."
+    }
+  ]
+}

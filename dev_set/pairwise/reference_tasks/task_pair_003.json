@@ -1,0 +1,41 @@
+{
+  "task_id": "task_pair_003",
+  "task_description": "Implement parse_csv_line(line): parse a single CSV record (a string) into a list of field strings. Support double-quoted fields that may contain commas, and the escaped-quote convention where a literal double quote inside a quoted field is encoded as `\"\"`. Empty string returns [''] (one empty field).",
+  "constraints": {
+    "entry_function": "parse_csv_line",
+    "max_loc": 500,
+    "imports_forbidden": ["csv", "os", "sys", "subprocess"]
+  },
+  "test_cases": [
+    {"input": [""],                      "expected": [""]},
+    {"input": ["a,b,c"],                 "expected": ["a","b","c"]},
+    {"input": ["a,,b"],                  "expected": ["a","","b"]},
+    {"input": ["a,\"b,c\",d"],           "expected": ["a","b,c","d"]},
+    {"input": ["\"hello \"\"world\"\"\""], "expected": ["hello \"world\""]},
+    {"input": ["\"a\",\"b\""],           "expected": ["a","b"]},
+    {"input": ["x"],                     "expected": ["x"]}
+  ],
+  "clean_code": "def parse_csv_line(line):\n    fields = []\n    cur = []\n    in_quotes = False\n    i = 0\n    while i < len(line):\n        c = line[i]\n        if in_quotes:\n            if c == '\"':\n                if i + 1 < len(line) and line[i+1] == '\"':\n                    cur.append('\"')\n                    i += 2\n                    continue\n                in_quotes = False\n            else:\n                cur.append(c)\n        else:\n            if c == '\"':\n                in_quotes = True\n            elif c == ',':\n                fields.append(''.join(cur))\n                cur = []\n            else:\n                cur.append(c)\n        i += 1\n    fields.append(''.join(cur))\n    return fields\n",
+  "buggy_code": "def parse_csv_line(line):\n    fields = []\n    cur = ''\n    for c in line:\n        if c == ',':\n            fields.append(cur)\n            cur = ''\n        else:\n            cur += c\n    fields.append(cur)\n    return fields\n",
+  "tricky_code": "def parse_csv_line(line):\n    fields = []\n    cur = []\n    in_quotes = False\n    for c in line:\n        if c == '\"':\n            in_quotes = not in_quotes\n        elif c == ',' and not in_quotes:\n            fields.append(''.join(cur))\n            cur = []\n        else:\n            cur.append(c)\n    fields.append(''.join(cur))\n    return fields\n",
+  "bugs_in_buggy": [
+    {
+      "line_start": 5,
+      "line_end": 9,
+      "severity": "high",
+      "type": "unhandled_input",
+      "description": "No quoted-field handling; commas inside quoted fields are mis-split. `a,\"b,c\",d` is mis-parsed as 4 fields.",
+      "suggested_fix": "Track an in_quotes flag and only treat ',' as a separator when not inside quotes."
+    }
+  ],
+  "bugs_in_tricky": [
+    {
+      "line_start": 6,
+      "line_end": 7,
+      "severity": "medium",
+      "type": "edge_case",
+      "description": "Toggling in_quotes on every `\"` does not handle the escaped-quote convention `\"\"` inside quoted fields; the literal quote is dropped and quoting state desyncs.",
+      "suggested_fix": "When inside a quoted field, peek at the next char: `\"\"` means a literal quote (append `\"`, advance 2); a lone `\"` closes the field."
+    }
+  ]
+}

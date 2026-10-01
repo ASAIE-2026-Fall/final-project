@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_014",
+  "question": "Return the names of players who have scored more than three goals in total across all games.",
+  "db_schema": "CREATE TABLE Teams (tid INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT NOT NULL);\nCREATE TABLE Players (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, tid INTEGER NOT NULL, position TEXT NOT NULL);\nCREATE TABLE Games (gid INTEGER PRIMARY KEY, home_tid INTEGER NOT NULL, away_tid INTEGER NOT NULL, date TEXT NOT NULL);\nCREATE TABLE Goals (gid INTEGER NOT NULL, pid INTEGER NOT NULL, minute INTEGER NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_014.sqlite",
+  "gold_sql": "SELECT p.name FROM Players p JOIN Goals g ON p.pid = g.pid GROUP BY p.pid, p.name HAVING COUNT(*) > 3;",
+  "dialect": "sqlite",
+  "_features": ["JOIN", "GROUP BY", "HAVING", "COUNT"]
+}

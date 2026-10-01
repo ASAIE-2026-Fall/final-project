@@ -1,0 +1,4 @@
+# text2sql skill 用到的 Python 套件 — 必須 pin 版本(規格書 §1.6)。
+# 預設骨架只用 Python 標準庫(json / sqlite3 / re),沒有額外依賴。
+# 若你的 harness 引入新套件,寫在這裡並 pin。範例:
+#   sqlglot==25.20.0

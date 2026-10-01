@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_019",
+  "question": "Return the distinct names of all doctors in the 'Cardiology' department, plus the distinct names of all patients who have had any appointment with a doctor in 'Cardiology'.",
+  "db_schema": "CREATE TABLE Departments (did INTEGER PRIMARY KEY, name TEXT NOT NULL);\nCREATE TABLE Doctors (doc_id INTEGER PRIMARY KEY, name TEXT NOT NULL, did INTEGER NOT NULL);\nCREATE TABLE Patients (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, age INTEGER NOT NULL);\nCREATE TABLE Appointments (aid INTEGER PRIMARY KEY, doc_id INTEGER NOT NULL, pid INTEGER NOT NULL, date TEXT NOT NULL, status TEXT NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_019.sqlite",
+  "gold_sql": "SELECT doc.name FROM Doctors doc JOIN Departments d ON doc.did = d.did WHERE d.name = 'Cardiology' UNION SELECT p.name FROM Patients p JOIN Appointments a ON p.pid = a.pid JOIN Doctors doc ON a.doc_id = doc.doc_id JOIN Departments d ON doc.did = d.did WHERE d.name = 'Cardiology';",
+  "dialect": "sqlite",
+  "_features": ["UNION", "multi-JOIN"]
+}

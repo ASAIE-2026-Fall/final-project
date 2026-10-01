@@ -1,0 +1,8 @@
+{
+  "task_id": "task_nl2sql_EXAMPLE",
+  "question": "List the names of all students in the CS department.",
+  "db_schema": "CREATE TABLE Students (sid INTEGER PRIMARY KEY, name TEXT NOT NULL, dept TEXT NOT NULL);\nCREATE TABLE Courses (cid INTEGER PRIMARY KEY, title TEXT NOT NULL, professor TEXT NOT NULL, year INTEGER NOT NULL);\nCREATE TABLE Enrollments (sid INTEGER NOT NULL, cid INTEGER NOT NULL, score INTEGER NOT NULL, PRIMARY KEY (sid, cid));",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_EXAMPLE.sqlite",
+  "gold_sql": "SELECT name FROM Students WHERE dept = 'CS';",
+  "dialect": "sqlite"
+}

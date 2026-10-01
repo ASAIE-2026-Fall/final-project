@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_013",
+  "question": "Return the names of all players on the team named 'Tigers'.",
+  "db_schema": "CREATE TABLE Teams (tid INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT NOT NULL);\nCREATE TABLE Players (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, tid INTEGER NOT NULL, position TEXT NOT NULL);\nCREATE TABLE Games (gid INTEGER PRIMARY KEY, home_tid INTEGER NOT NULL, away_tid INTEGER NOT NULL, date TEXT NOT NULL);\nCREATE TABLE Goals (gid INTEGER NOT NULL, pid INTEGER NOT NULL, minute INTEGER NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_013.sqlite",
+  "gold_sql": "SELECT p.name FROM Players p JOIN Teams t ON p.tid = t.tid WHERE t.name = 'Tigers';",
+  "dialect": "sqlite",
+  "_features": ["INNER JOIN"]
+}

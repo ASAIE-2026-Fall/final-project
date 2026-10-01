@@ -1,0 +1,30 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+pytest-cache-files-*/
+.DS_Store
+.venv/
+venv/
+.env
+.hermes/
+*.egg-info/
+dist/
+build/
+
+# Local runs
+dev_run_results/
+verify_report.json
+
+# Generated dev set sqlite files — students rebuild via dev_set/basic/build_dbs.py
+dev_set/basic/dbs/*.sqlite
+
+# Personal notes — not for submission
+助教補充老師提醒.txt
+專案基本梳理.md
+TAICA2026_FinalProject.md
+README_example.md
+preprocessing.md
+614 助教補充.txt
+
+aiase-2026-filebased-update/

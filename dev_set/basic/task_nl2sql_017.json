@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_017",
+  "question": "For each department, return its name and the total number of appointments handled by its doctors. Include departments with zero appointments.",
+  "db_schema": "CREATE TABLE Departments (did INTEGER PRIMARY KEY, name TEXT NOT NULL);\nCREATE TABLE Doctors (doc_id INTEGER PRIMARY KEY, name TEXT NOT NULL, did INTEGER NOT NULL);\nCREATE TABLE Patients (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, age INTEGER NOT NULL);\nCREATE TABLE Appointments (aid INTEGER PRIMARY KEY, doc_id INTEGER NOT NULL, pid INTEGER NOT NULL, date TEXT NOT NULL, status TEXT NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_017.sqlite",
+  "gold_sql": "SELECT d.name, COUNT(a.aid) FROM Departments d LEFT JOIN Doctors doc ON d.did = doc.did LEFT JOIN Appointments a ON doc.doc_id = a.doc_id GROUP BY d.did, d.name;",
+  "dialect": "sqlite",
+  "_features": ["LEFT JOIN (chain)", "COUNT", "GROUP BY"]
+}

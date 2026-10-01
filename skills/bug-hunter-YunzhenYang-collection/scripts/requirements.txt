@@ -1,0 +1,2 @@
+# bug-hunter skill 預設只用 Python 標準庫(ast / signal / json)。
+# 若你的 harness 引入新套件,寫在這裡並 pin 版本。

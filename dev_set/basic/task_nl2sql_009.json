@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_009",
+  "question": "Return the titles of all books written by author 'Le Guin'.",
+  "db_schema": "CREATE TABLE Books (bid INTEGER PRIMARY KEY, title TEXT NOT NULL);\nCREATE TABLE Authors (aid INTEGER PRIMARY KEY, name TEXT NOT NULL);\nCREATE TABLE BookAuthors (bid INTEGER NOT NULL, aid INTEGER NOT NULL, PRIMARY KEY (bid, aid));\nCREATE TABLE Members (mid INTEGER PRIMARY KEY, name TEXT NOT NULL, joined TEXT NOT NULL);\nCREATE TABLE Loans (lid INTEGER PRIMARY KEY, bid INTEGER NOT NULL, mid INTEGER NOT NULL, due_date TEXT NOT NULL, returned INTEGER NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_009.sqlite",
+  "gold_sql": "SELECT b.title FROM Books b JOIN BookAuthors ba ON b.bid = ba.bid JOIN Authors a ON ba.aid = a.aid WHERE a.name = 'Le Guin';",
+  "dialect": "sqlite",
+  "_features": ["many-to-many JOIN"]
+}

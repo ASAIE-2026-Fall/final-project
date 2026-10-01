@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_015",
+  "question": "Return the name of the team that has played the most games as the home team. If multiple teams tie, return all tied teams.",
+  "db_schema": "CREATE TABLE Teams (tid INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT NOT NULL);\nCREATE TABLE Players (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, tid INTEGER NOT NULL, position TEXT NOT NULL);\nCREATE TABLE Games (gid INTEGER PRIMARY KEY, home_tid INTEGER NOT NULL, away_tid INTEGER NOT NULL, date TEXT NOT NULL);\nCREATE TABLE Goals (gid INTEGER NOT NULL, pid INTEGER NOT NULL, minute INTEGER NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_015.sqlite",
+  "gold_sql": "SELECT t.name FROM Teams t WHERE t.tid IN (SELECT home_tid FROM Games GROUP BY home_tid HAVING COUNT(*) = (SELECT MAX(c) FROM (SELECT COUNT(*) AS c FROM Games GROUP BY home_tid)));",
+  "dialect": "sqlite",
+  "_features": ["nested subquery (depth 2)", "GROUP BY", "MAX", "HAVING"]
+}

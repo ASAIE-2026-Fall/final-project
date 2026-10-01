@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_005",
+  "question": "Return the distinct names of products purchased by the customer 'Alice'.",
+  "db_schema": "CREATE TABLE Customers (cid INTEGER PRIMARY KEY, name TEXT NOT NULL, country TEXT NOT NULL);\nCREATE TABLE Products (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL, price REAL NOT NULL);\nCREATE TABLE Orders (oid INTEGER PRIMARY KEY, cid INTEGER NOT NULL, ts TEXT NOT NULL);\nCREATE TABLE OrderItems (oid INTEGER NOT NULL, pid INTEGER NOT NULL, qty INTEGER NOT NULL, PRIMARY KEY (oid, pid));",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_005.sqlite",
+  "gold_sql": "SELECT DISTINCT p.name FROM Customers c JOIN Orders o ON c.cid = o.cid JOIN OrderItems oi ON o.oid = oi.oid JOIN Products p ON oi.pid = p.pid WHERE c.name = 'Alice';",
+  "dialect": "sqlite",
+  "_features": ["multi-JOIN (4 tables)", "DISTINCT"]
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_016",
+  "question": "Return the names of players who scored at least one goal in every home game played by their team.",
+  "db_schema": "CREATE TABLE Teams (tid INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT NOT NULL);\nCREATE TABLE Players (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, tid INTEGER NOT NULL, position TEXT NOT NULL);\nCREATE TABLE Games (gid INTEGER PRIMARY KEY, home_tid INTEGER NOT NULL, away_tid INTEGER NOT NULL, date TEXT NOT NULL);\nCREATE TABLE Goals (gid INTEGER NOT NULL, pid INTEGER NOT NULL, minute INTEGER NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_016.sqlite",
+  "gold_sql": "SELECT p.name FROM Players p WHERE NOT EXISTS (SELECT 1 FROM Games g WHERE g.home_tid = p.tid AND NOT EXISTS (SELECT 1 FROM Goals go WHERE go.gid = g.gid AND go.pid = p.pid));",
+  "dialect": "sqlite",
+  "_features": ["correlated subquery (depth 2)", "NOT EXISTS"]
+}

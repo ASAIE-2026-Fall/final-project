@@ -1,0 +1,15 @@
+{
+  "_comment": "Pairwise task EXAMPLE — student-facing format. The 5 reference_tasks/task_pair_*.json files include extra fields (clean_code, buggy_code, tricky_code, bugs_*) used by the reference skills + run_dev.py self-grading. This file shows the minimal shape an evaluator only needs.",
+  "task_id": "task_pair_EXAMPLE",
+  "task_description": "Implement reverse_words(s): given a string of space-separated words, return the words reversed in order, preserving single-space separators. Empty string returns ''. Multiple consecutive spaces should collapse to one.",
+  "constraints": {
+    "entry_function": "reverse_words",
+    "max_loc": 500,
+    "imports_forbidden": ["os", "sys", "subprocess"]
+  },
+  "sample_tests": [
+    {"input": [""],              "expected": ""},
+    {"input": ["hello world"],   "expected": "world hello"},
+    {"input": ["  a   b  "],     "expected": "b a"}
+  ]
+}

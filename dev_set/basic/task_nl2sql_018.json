@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_018",
+  "question": "Return the three oldest patients who have had at least one appointment. For each, return the name and age, sorted by age descending.",
+  "db_schema": "CREATE TABLE Departments (did INTEGER PRIMARY KEY, name TEXT NOT NULL);\nCREATE TABLE Doctors (doc_id INTEGER PRIMARY KEY, name TEXT NOT NULL, did INTEGER NOT NULL);\nCREATE TABLE Patients (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, age INTEGER NOT NULL);\nCREATE TABLE Appointments (aid INTEGER PRIMARY KEY, doc_id INTEGER NOT NULL, pid INTEGER NOT NULL, date TEXT NOT NULL, status TEXT NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_018.sqlite",
+  "gold_sql": "SELECT DISTINCT p.name, p.age FROM Patients p JOIN Appointments a ON p.pid = a.pid ORDER BY p.age DESC LIMIT 3;",
+  "dialect": "sqlite",
+  "_features": ["JOIN", "DISTINCT", "ORDER BY", "LIMIT"]
+}

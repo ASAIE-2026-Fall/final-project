@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_010",
+  "question": "For each author, return the author's name and the number of books they have written. Include authors with zero books (count of 0).",
+  "db_schema": "CREATE TABLE Books (bid INTEGER PRIMARY KEY, title TEXT NOT NULL);\nCREATE TABLE Authors (aid INTEGER PRIMARY KEY, name TEXT NOT NULL);\nCREATE TABLE BookAuthors (bid INTEGER NOT NULL, aid INTEGER NOT NULL, PRIMARY KEY (bid, aid));\nCREATE TABLE Members (mid INTEGER PRIMARY KEY, name TEXT NOT NULL, joined TEXT NOT NULL);\nCREATE TABLE Loans (lid INTEGER PRIMARY KEY, bid INTEGER NOT NULL, mid INTEGER NOT NULL, due_date TEXT NOT NULL, returned INTEGER NOT NULL);",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_010.sqlite",
+  "gold_sql": "SELECT a.name, COUNT(ba.bid) FROM Authors a LEFT JOIN BookAuthors ba ON a.aid = ba.aid GROUP BY a.aid, a.name;",
+  "dialect": "sqlite",
+  "_features": ["LEFT JOIN", "COUNT", "GROUP BY"]
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_006",
+  "question": "Return the names of all customers who have not placed any orders.",
+  "db_schema": "CREATE TABLE Customers (cid INTEGER PRIMARY KEY, name TEXT NOT NULL, country TEXT NOT NULL);\nCREATE TABLE Products (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL, price REAL NOT NULL);\nCREATE TABLE Orders (oid INTEGER PRIMARY KEY, cid INTEGER NOT NULL, ts TEXT NOT NULL);\nCREATE TABLE OrderItems (oid INTEGER NOT NULL, pid INTEGER NOT NULL, qty INTEGER NOT NULL, PRIMARY KEY (oid, pid));",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_006.sqlite",
+  "gold_sql": "SELECT c.name FROM Customers c LEFT JOIN Orders o ON c.cid = o.cid WHERE o.oid IS NULL;",
+  "dialect": "sqlite",
+  "_features": ["LEFT JOIN", "NULL filter"]
+}

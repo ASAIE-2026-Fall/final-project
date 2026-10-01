@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_007",
+  "question": "Return the top two product categories by total revenue (price * qty). For each, give the category name and the total revenue. Order by revenue descending.",
+  "db_schema": "CREATE TABLE Customers (cid INTEGER PRIMARY KEY, name TEXT NOT NULL, country TEXT NOT NULL);\nCREATE TABLE Products (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL, price REAL NOT NULL);\nCREATE TABLE Orders (oid INTEGER PRIMARY KEY, cid INTEGER NOT NULL, ts TEXT NOT NULL);\nCREATE TABLE OrderItems (oid INTEGER NOT NULL, pid INTEGER NOT NULL, qty INTEGER NOT NULL, PRIMARY KEY (oid, pid));",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_007.sqlite",
+  "gold_sql": "SELECT p.category, SUM(p.price * oi.qty) AS revenue FROM Products p JOIN OrderItems oi ON p.pid = oi.pid GROUP BY p.category ORDER BY revenue DESC LIMIT 2;",
+  "dialect": "sqlite",
+  "_features": ["JOIN", "SUM", "GROUP BY", "ORDER BY", "LIMIT"]
+}

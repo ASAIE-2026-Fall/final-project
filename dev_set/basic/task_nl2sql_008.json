@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_008",
+  "question": "Return the distinct names of customers who have ever bought any product in the 'Electronics' category OR any product in the 'Books' category.",
+  "db_schema": "CREATE TABLE Customers (cid INTEGER PRIMARY KEY, name TEXT NOT NULL, country TEXT NOT NULL);\nCREATE TABLE Products (pid INTEGER PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL, price REAL NOT NULL);\nCREATE TABLE Orders (oid INTEGER PRIMARY KEY, cid INTEGER NOT NULL, ts TEXT NOT NULL);\nCREATE TABLE OrderItems (oid INTEGER NOT NULL, pid INTEGER NOT NULL, qty INTEGER NOT NULL, PRIMARY KEY (oid, pid));",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_008.sqlite",
+  "gold_sql": "SELECT DISTINCT c.name FROM Customers c JOIN Orders o ON c.cid = o.cid JOIN OrderItems oi ON o.oid = oi.oid JOIN Products p ON oi.pid = p.pid WHERE p.category = 'Electronics' UNION SELECT DISTINCT c.name FROM Customers c JOIN Orders o ON c.cid = o.cid JOIN OrderItems oi ON o.oid = oi.oid JOIN Products p ON oi.pid = p.pid WHERE p.category = 'Books';",
+  "dialect": "sqlite",
+  "_features": ["UNION", "multi-JOIN", "DISTINCT"]
+}

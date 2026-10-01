@@ -1,0 +1,9 @@
+{
+  "task_id": "task_nl2sql_002",
+  "question": "For each course, return its title and the average score across all enrollments. Sort by average score descending.",
+  "db_schema": "CREATE TABLE Students (sid INTEGER PRIMARY KEY, name TEXT NOT NULL, dept TEXT NOT NULL);\nCREATE TABLE Courses (cid INTEGER PRIMARY KEY, title TEXT NOT NULL, professor TEXT NOT NULL, year INTEGER NOT NULL);\nCREATE TABLE Enrollments (sid INTEGER NOT NULL, cid INTEGER NOT NULL, score INTEGER NOT NULL, PRIMARY KEY (sid, cid));",
+  "db_path": "dev_set/basic/dbs/task_nl2sql_002.sqlite",
+  "gold_sql": "SELECT c.title, AVG(e.score) FROM Courses c JOIN Enrollments e ON c.cid = e.cid GROUP BY c.cid, c.title ORDER BY AVG(e.score) DESC;",
+  "dialect": "sqlite",
+  "_features": ["JOIN", "GROUP BY", "AVG", "ORDER BY"]
+}
